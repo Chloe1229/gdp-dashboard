@@ -108,6 +108,17 @@ def go_to_step5():
     st.session_state.step5_targets = [
         code for code, val in st.session_state.step4_selections.items() if val == "변경 있음"
     ]
+
+    st.session_state.step5_selections = {}
+    for code in st.session_state.step5_targets:
+        if code in step5_items:
+            for num in step5_items[code]["items"].keys():
+                key = f"{code}_{num}"
+                if code == "ds":
+                    st.session_state.step5_selections[key] = "변경 있음"
+                else:
+                    st.session_state.step5_selections[key] = None
+
     st.session_state.step = 5
 
 # Step 4 이전단계 복귀 함수
@@ -246,6 +257,8 @@ def go_to_step6():
     st.session_state.step6_targets = [
         key for key, val in st.session_state.step5_selections.items() if val == "변경 있음"
     ]
+    st.session_state.step6_page = 0
+    st.session_state.step6_selections = {}
     st.session_state.step = 6
 
 def go_back_to_step4():
