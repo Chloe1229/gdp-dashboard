@@ -1,30 +1,28 @@
 # Step 7 Hard-Coded Logic – Integration Guide
 
 > **Scope**
-> This README describes how to integrate the hard-coded **Step 7** module with the existing
-> `step1_to_6.py` Streamlit app in your Codex-linked GitHub repository.
-> All identifiers, column names, and Korean UI strings **must remain exactly as written**
-> to ensure a 1-to-1 mapping with `step7_data.xlsx`.
-> Step 7 logic is fully hardcoded and runs automatically once Step 6 completes,
-> executing from `step1_to_7_final.py`.
+> This README explains how to run the single-file Streamlit app `step1_to_7_final.py`.
+> All identifiers, column names, and Korean UI strings **must remain exactly as written**.
+> Step 7 logic is already hardcoded in this script and activates automatically once Step 6 completes.
+
 ---
 
 ## 1. Repository Structure
 
     / (project root)
-    ├─ step1_to_6.py        # completed Steps 1 – 6
-    ├─ step1_to_7_final.py  # ★ add this file
-    ├─ step7_data.xlsx      # worksheet containing evaluation rules & texts
+    ├─ step1_to_7_final.py  # single executable covering Steps 1–7
+    ├─ step7_hardcoded.py  # fully hard-coded Step 7 logic
+    ├─ step7_data.xlsx      # reference worksheet (not read at runtime)
     └─ README.md            # (this file)
 
 ---
 
 ## 2. Activation Sequence
 
-1. User finishes Step 6 → `st.session_state.step = 7`
-2. `step1_to_6.py` imports `step1_to_7_final.py` **after** its own logic
-3. Step 7 uses hardcoded `if` statements (converted from `step7_data.xlsx`) to render pages and store results
-4. Final-page button **"신청양식 확인하기"** sets `st.session_state.step = 8`, handing control to Step 8
+1. Run the app with `streamlit run step1_to_7_final.py`.
+2. When Step 6 finishes, `st.session_state.step` becomes `7` and Step 7 loads automatically.
+3. Step 7 uses explicit `if` statements and stores matching outputs in `step7_results`.
+4. The final-page button **"신청양식 확인하기"** sets `st.session_state.step = 8`.
 
 ---
 
@@ -70,9 +68,7 @@ Do not alter its structure.
 
 ## 7. Quick Setup Checklist
 
-- [ ] Copy `step1_to_7_final.py` to the repo root (same level as `step1_to_6.py`)
-- [ ] In `step1_to_6.py` add the line
-      `import step1_to_7_final` **after** the Step 6 logic
-- [ ] Commit & push → Codex auto-runs Step 7 whenever `st.session_state.step == 7`
+- [ ] Run the app: `streamlit run step1_to_7_final.py`
+- [ ] Step 7 activates automatically when `st.session_state.step` equals `7`
 
 ---
