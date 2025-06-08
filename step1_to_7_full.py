@@ -1,3 +1,5 @@
+import streamlit as st
+
 # ===== 초기 상태 정의 =====
 if "step" not in st.session_state:
     st.session_state.step = 1
@@ -1812,4 +1814,3 @@ if st.session_state.step == 7:
                 "다음단계로",
                 on_click=lambda: st.session_state.__setitem__('step7_page', st.session_state.step7_page  1)
             )
- 
