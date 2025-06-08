@@ -1,10 +1,12 @@
 # Step 7 Hard-Coded Logic – Integration Guide
 
-> **Scope**  
-> This README describes how to integrate the hard-coded **Step 7** module with the existing  
-> `step1_to_6.py` Streamlit app in your Codex-linked GitHub repository.  
-> All identifiers, column names, and Korean UI strings **must remain exactly as written**  
+> **Scope**
+> This README describes how to integrate the hard-coded **Step 7** module with the existing
+> `step1_to_6.py` Streamlit app in your Codex-linked GitHub repository.
+> All identifiers, column names, and Korean UI strings **must remain exactly as written**
 > to ensure a 1-to-1 mapping with `step7_data.xlsx`.
+> The Excel file is used only to generate the code—Step 7 itself relies solely on
+> hardcoded `if` statements and does not load the spreadsheet at runtime.
 
 ---
 
@@ -12,7 +14,7 @@
 
     / (project root)
     ├─ step1_to_6.py        # completed Steps 1 – 6
-    ├─ step7_hardcoded.py   # ★ add this file
+    ├─ step1_to_7_final.py  # ★ add this file
     ├─ step7_data.xlsx      # worksheet containing evaluation rules & texts
     └─ README.md            # (this file)
 
@@ -20,9 +22,9 @@
 
 ## 2. Activation Sequence
 
-1. User finishes Step 6 → `st.session_state.step = 7`  
-2. `step1_to_6.py` imports `step7_hardcoded.py` **after** its own logic  
-3. Step 7 reads once from `step7_data.xlsx` and renders dynamic pages  
+1. User finishes Step 6 → `st.session_state.step = 7`
+2. `step1_to_6.py` imports `step1_to_7_final.py` **after** its own logic
+3. Step 7 uses hardcoded `if` statements (converted from `step7_data.xlsx`) to render pages and store results
 4. Final-page button **"신청양식 확인하기"** sets `st.session_state.step = 8`, handing control to Step 8
 
 ---
@@ -69,10 +71,9 @@ Do not alter its structure.
 
 ## 7. Quick Setup Checklist
 
-- [ ] Copy `step7_hardcoded.py` to the repo root (same level as `step1_to_6.py`)
-- [ ] Ensure `step7_data.xlsx` is present in the same folder
-- [ ] In `step1_to_6.py` add the line  
-      `import step7_hardcoded` **after** the Step 6 logic
+- [ ] Copy `step1_to_7_final.py` to the repo root (same level as `step1_to_6.py`)
+- [ ] In `step1_to_6.py` add the line
+      `import step1_to_7_final` **after** the Step 6 logic
 - [ ] Commit & push → Codex auto-runs Step 7 whenever `st.session_state.step == 7`
 
 ---
