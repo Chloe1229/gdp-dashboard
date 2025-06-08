@@ -613,6 +613,8 @@ def go_back_to_step5():
 
 def go_to_step7():
     st.session_state.step = 7
+    st.session_state.step7_page = 0
+    st.session_state.step7_results = {}
 
 if st.session_state.step == 6:
     st.markdown("## Step 6")
@@ -1752,10 +1754,15 @@ if st.session_state.step == 7:
 
     targets = st.session_state.step6_targets
     total_pages = len(targets)
+    st.session_state.step7_page = max(
+        0, min(st.session_state.step7_page, total_pages - 1)
+    )
+
     if not targets:
-        st.warning("Step5에서 선택된 항목이 없습니다.")
+        st.warning("Step6에서 선택된 항목이 없습니다.")
     else:
         current_key = targets[st.session_state.step7_page]
+        st.session_state.step7_results[current_key] = []
         step6_selections = st.session_state.step6_selections
 
         st.markdown("## 제조방법 변경에 따른 필요서류 및 보고유형")
@@ -1808,6 +1815,37 @@ if st.session_state.step == 7:
                     "2. (S.2.1) 제조소명, 주소, 책임부과범위 및 해당하는 경우 수탁업소에 관한 자료.\n"
                     "4. 변경 전·후 제조소의 원료의약품, 중간체 또는 원료의약품 출발 물질 (해당되는 경우)제조 공정에 관한 자료.\n"
                     "10. 변경 전·후 출발 물질 또는 중간체의 최소 1배치에 대한 시험 성적서(해당하는 경우), 출발물질 또는 중간체 변경 전·후 최종 원료의약품 2배치에 대한 배치분석 자료."
+                )
+                st.markdown(output_1_text)
+                st.markdown(output_2_text)
+                st.session_state.step7_results.setdefault(current_key, []).append(
+                    ("IR", output_1_text, output_2_text)
+                )
+
+        elif current_key == "s2_3":
+            if (
+                step6_selections.get("s2_3_req_1") == "충족"
+                and step6_selections.get("s2_3_req_2") == "충족"
+                and step6_selections.get("s2_3_req_3") == "충족"
+                and step6_selections.get("s2_3_req_4") == "충족"
+                and step6_selections.get("s2_3_req_5") == "충족"
+                and step6_selections.get("s2_3_req_6") == "충족"
+                and step6_selections.get("s2_3_req_7") == "충족"
+                and step6_selections.get("s2_3_req_8") == "충족"
+                and step6_selections.get("s2_3_req_9") == "미충족"
+            ):
+                hit = True
+                output_1_text = (
+                    "보고유형은 다음과 같습니다.\n\n"
+                    "IR, 시판전보고\n"
+                    "\u300C의약품의 품목허가‧신고‧심사 규정\u300D 제3조의2제4항 단서조항에 따른 시판전 보고(Immediate Report, IR) 수준의 변경사항입니다."
+                )
+                output_2_text = (
+                    "필요서류는 다음과 같습니다.\n\n"
+                    "2. 변경 전·후 제조방법 비교표 등 변경 전·후에 관한 자료\n"
+                    "3. (S.2.2) 변경하고자 하는 합성 공정 흐름도 및 상세 제조 공정에 관한 자료.\n"
+                    "4. (S.2.3)(해당되는 경우) 변경하고자 하는 원료의약품 제조에 사용된 원료(예 : 원료약품, 출발 물질, 용매, 시약, 촉매)의 규격 및 시험 성적서.\n"
+                    "11. (S.4.4) 변경 전·후 원료의약품 최소 2배치(파일럿 배치 이상)에 대한 배치분석 자료."
                 )
                 st.markdown(output_1_text)
                 st.markdown(output_2_text)
