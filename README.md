@@ -5,9 +5,8 @@
 > `step1_to_6.py` Streamlit app in your Codex-linked GitHub repository.
 > All identifiers, column names, and Korean UI strings **must remain exactly as written**
 > to ensure a 1-to-1 mapping with `step7_data.xlsx`.
-> The Excel file is used only to generate the code—Step 7 itself relies solely on
-> hardcoded `if` statements and does not load the spreadsheet at runtime.
-
+> Step 7 logic is fully hardcoded and runs automatically once Step 6 completes,
+> executing from `step1_to_7_final.py`.
 ---
 
 ## 1. Repository Structure
