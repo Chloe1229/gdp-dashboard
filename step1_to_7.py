@@ -610,7 +610,7 @@ def go_to_prev_step6_page():
 
 def go_to_next_step6_page():
     if st.session_state.step6_page < len(st.session_state.step6_targets) - 1:
-        st.session_state.step6_page = 1
+        st.session_state.step6_page += 1
 
 def go_back_to_step5():
     st.session_state.step = 5
@@ -740,7 +740,7 @@ if st.session_state.step == 7:
             lines = [l.strip() for l in expr.split("\n") if l.strip()]
             if not lines:
                 continue
-            cond_parts.append('('  ' and '.join(lines)  ')')
+            cond_parts.append('(' + ' and '.join(lines) + ')')
         if not cond_parts:
             continue
         expr = ' and '.join(cond_parts)
@@ -777,5 +777,5 @@ if st.session_state.step == 7:
         else:
             st.button(
                 "다음단계로",
-                on_click=lambda: st.session_state.__setitem__('step7_page', st.session_state.step7_page  1)
+                on_click=lambda: st.session_state.__setitem__('step7_page', st.session_state.step7_page + 1)
             )
